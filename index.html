@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CORPUS — A Portfolio on Sacred Imagery in Hip Hop Fashion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Archivo+Black&family=Archivo:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --ink:    #0c0c0c;
+      --paper:  #f7f4ef;
+      --cream:  #ede9e0;
+      --accent: #c8001e;
+      --gold:   #9a7c3f;
+      --grey1:  #e2ddd6;
+      --grey2:  #b0a898;
+      --grey3:  #6b6560;
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --sans:   'Archivo Black', sans-serif;
+      --body:   'Archivo', sans-serif;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    #cur { position:fixed; width:8px; height:8px; background:var(--ink); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s; mix-blend-mode:multiply; }
+    #cur-ring { position:fixed; width:32px; height:32px; border:1px solid var(--ink); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:all .12s ease; mix-blend-mode:multiply; }
+
+    body::after {
+      content:''; position:fixed; inset:0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events:none; z-index:8888; opacity:.5;
+    }
+
+    .eyebrow { font-family:var(--body); font-size:10px; font-weight:400; letter-spacing:5px; text-transform:uppercase; color:var(--grey3); }
+
+    /* MASTHEAD */
+    .masthead { display:grid; grid-template-columns:1fr auto 1fr; align-items:end; padding:48px 60px 24px; border-bottom:1px solid var(--ink); }
+    .masthead-left { display:flex; flex-direction:column; gap:6px; }
+    .masthead-title { font-family:var(--sans); font-size:clamp(64px,10vw,128px); letter-spacing:-3px; line-height:.9; color:var(--ink); text-align:center; }
+    .masthead-title sup { font-family:var(--serif); font-size:28px; font-style:italic; font-weight:300; vertical-align:super; letter-spacing:0; color:var(--accent); }
+    .masthead-right { text-align:right; display:flex; flex-direction:column; gap:6px; align-items:flex-end; }
+    .masthead-subtitle { font-family:var(--serif); font-style:italic; font-size:13px; color:var(--grey3); font-weight:300; }
+
+    /* TICKER */
+    .ticker-wrap { background:var(--ink); overflow:hidden; white-space:nowrap; padding:10px 0; }
+    .ticker-track { display:inline-block; animation:scroll-left 28s linear infinite; }
+    .ticker-track span { font-family:var(--body); font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--paper); margin:0 32px; }
+    .ticker-track .dot { color:var(--accent); font-size:14px; vertical-align:middle; margin:0 8px; }
+    @keyframes scroll-left { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* COVER */
+    .cover { display:grid; grid-template-columns:55fr 45fr; min-height:92vh; border-bottom:1px solid var(--ink); }
+    .cover-left { padding:72px 60px; border-right:1px solid var(--ink); display:flex; flex-direction:column; justify-content:space-between; }
+    .cover-overline { display:flex; align-items:center; gap:16px; }
+    .cover-overline::after { content:''; flex:1; height:1px; background:var(--grey1); }
+    .cover-headline { font-family:var(--serif); font-size:clamp(52px,7vw,96px); font-weight:300; line-height:1.0; letter-spacing:-1px; }
+    .cover-headline em { font-style:italic; color:var(--accent); display:block; }
+    .cover-headline strong { font-weight:700; display:block; }
+    .cover-intro { font-size:14px; line-height:1.9; color:var(--grey3); max-width:480px; font-weight:300; }
+    .cover-intro strong { color:var(--ink); font-weight:400; }
+    .cover-bottom { display:flex; align-items:center; justify-content:space-between; }
+    .cover-scroll-hint { font-family:var(--body); font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--grey2); display:flex; align-items:center; gap:12px; }
+    .cover-scroll-hint::before { content:''; display:block; width:40px; height:1px; background:var(--grey2); }
+    .cover-right { position:relative; overflow:hidden; background:var(--ink); display:flex; align-items:center; justify-content:center; }
+    .cover-right-glyph { font-family:var(--sans); font-size:clamp(160px,22vw,320px); color:transparent; -webkit-text-stroke:1px rgba(247,244,239,0.08); line-height:1; user-select:none; position:absolute; }
+    .cover-right-content { position:relative; z-index:2; padding:60px; display:flex; flex-direction:column; justify-content:flex-end; height:100%; width:100%; }
+    .cover-pull-quote { font-family:var(--serif); font-style:italic; font-size:clamp(22px,3vw,34px); font-weight:300; color:var(--paper); line-height:1.4; border-left:2px solid var(--accent); padding-left:28px; margin-bottom:20px; }
+    .cover-pull-cite { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--grey2); padding-left:30px; }
+    .cover-issue-number { position:absolute; top:48px; right:48px; font-family:var(--sans); font-size:96px; color:transparent; -webkit-text-stroke:1px rgba(247,244,239,0.1); line-height:1; user-select:none; }
+
+    /* CONTENTS BAR */
+    .contents-bar { display:grid; grid-template-columns:repeat(5,1fr); border-bottom:1px solid var(--ink); }
+    .contents-item { padding:20px 28px; border-right:1px solid var(--grey1); display:flex; flex-direction:column; gap:6px; transition:background .3s; cursor:none; }
+    .contents-item:last-child { border-right:none; }
+    .contents-item:hover { background:var(--cream); }
+    .contents-num { font-family:var(--sans); font-size:11px; color:var(--grey2); }
+    .contents-name { font-family:var(--serif); font-size:15px; font-style:italic; font-weight:400; line-height:1.2; }
+    .contents-tag { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--grey3); }
+
+    /* SPREAD ENGINE */
+    .spread { display:grid; border-bottom:1px solid var(--ink); }
+    .spread-featured { grid-template-columns:60fr 40fr; }
+    .spread-reverse  { grid-template-columns:40fr 60fr; }
+    .spread-2col     { grid-template-columns:1fr 1fr; }
+
+    .panel { padding:64px 56px; border-right:1px solid var(--grey1); position:relative; overflow:hidden; }
+    .panel:last-child { border-right:none; }
+    .panel-ink   { background:var(--ink); color:var(--paper); }
+    .panel-cream { background:var(--cream); }
+    .panel-accent-bg { background:var(--accent); color:var(--paper); }
+
+    /* SOURCE COMPONENTS */
+    .src-number { font-family:var(--sans); font-size:11px; letter-spacing:3px; color:var(--grey2); margin-bottom:20px; display:flex; align-items:center; gap:12px; }
+    .src-number::after { content:''; flex:1; max-width:48px; height:1px; background:var(--grey1); }
+    .panel-ink .src-number { color:rgba(247,244,239,.4); }
+    .panel-ink .src-number::after { background:rgba(247,244,239,.15); }
+
+    .src-label { display:inline-block; font-size:9px; letter-spacing:4px; text-transform:uppercase; border:1px solid currentColor; padding:4px 12px; margin-bottom:20px; color:var(--grey3); }
+    .panel-ink .src-label { color:rgba(247,244,239,.5); }
+    .panel-accent-bg .src-label { color:rgba(247,244,239,.7); border-color:rgba(247,244,239,.5); }
+
+    .src-title { font-family:var(--serif); font-size:clamp(32px,4vw,56px); font-weight:700; line-height:1.05; letter-spacing:-0.5px; margin-bottom:8px; }
+    .src-title-sm { font-family:var(--serif); font-size:clamp(24px,2.5vw,36px); font-weight:700; line-height:1.1; margin-bottom:8px; }
+    .src-artist { font-family:var(--body); font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:36px; }
+
+    .annotation { font-size:13px; line-height:1.95; color:var(--grey3); font-weight:300; }
+    .annotation strong { color:var(--ink); font-weight:600; }
+    .panel-ink .annotation { color:rgba(247,244,239,.65); }
+    .panel-ink .annotation strong { color:var(--paper); }
+    .panel-accent-bg .annotation { color:rgba(247,244,239,.8); }
+    .panel-accent-bg .annotation strong { color:var(--paper); }
+
+    .src-year-bg { font-family:var(--sans); font-size:clamp(80px,14vw,180px); color:transparent; -webkit-text-stroke:1px var(--grey1); line-height:1; user-select:none; position:absolute; bottom:20px; right:20px; letter-spacing:-4px; }
+    .panel-ink .src-year-bg { -webkit-text-stroke:1px rgba(247,244,239,.08); }
+    .panel-accent-bg .src-year-bg { -webkit-text-stroke:1px rgba(247,244,239,.15); }
+
+    /* PULL QUOTE PANEL */
+    .pull-panel { display:flex; flex-direction:column; justify-content:center; }
+    .pq-rule { width:40px; height:2px; background:var(--accent); margin-bottom:32px; }
+    .pq-text { font-family:var(--serif); font-style:italic; font-size:clamp(22px,2.8vw,36px); font-weight:300; line-height:1.45; color:var(--ink); margin-bottom:24px; }
+    .panel-ink .pq-text { color:var(--paper); }
+    .pq-source { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--grey3); }
+    .panel-ink .pq-source { color:rgba(247,244,239,.4); }
+
+    /* GLYPH PANEL */
+    .glyph-panel { display:flex; align-items:center; justify-content:center; min-height:380px; position:relative; }
+    .glyph-main { font-family:var(--serif); font-size:clamp(120px,18vw,240px); font-weight:300; color:transparent; -webkit-text-stroke:1px var(--grey1); user-select:none; animation:glyph-drift 12s ease-in-out infinite; }
+    .panel-ink .glyph-main { -webkit-text-stroke:1px rgba(247,244,239,.12); }
+    @keyframes glyph-drift { 0%,100%{transform:rotate(-8deg) scale(1)} 50%{transform:rotate(4deg) scale(1.04)} }
+    .glyph-label { position:absolute; bottom:28px; left:28px; font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--grey2); }
+
+    /* FEATURE FULL */
+    .feature-full { border-bottom:1px solid var(--ink); display:grid; grid-template-columns:1fr 1fr 1fr; }
+    .feature-col { padding:56px; border-right:1px solid var(--grey1); }
+    .feature-col:last-child { border-right:none; }
+
+    /* THESIS BAND */
+    .thesis-band { background:var(--ink); padding:72px 60px; display:grid; grid-template-columns:1fr 2fr; gap:80px; align-items:center; border-bottom:1px solid var(--ink); }
+    .thesis-label { font-family:var(--body); font-size:10px; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+    .thesis-word { font-family:var(--sans); font-size:clamp(40px,6vw,72px); color:var(--paper); line-height:.95; letter-spacing:-1px; }
+    .thesis-body { font-family:var(--serif); font-size:clamp(18px,2vw,26px); font-style:italic; font-weight:300; color:rgba(247,244,239,.75); line-height:1.65; }
+    .thesis-body strong { color:var(--paper); font-style:normal; font-weight:600; }
+
+    /* FINALE */
+    .finale { display:grid; grid-template-columns:1fr 1fr; min-height:70vh; border-bottom:1px solid var(--ink); }
+    .finale-left { background:var(--paper); padding:72px 60px; display:flex; flex-direction:column; justify-content:space-between; border-right:1px solid var(--ink); }
+    .finale-right { background:var(--ink); padding:72px 60px; display:flex; flex-direction:column; justify-content:center; }
+    .finale-arabic { font-family:var(--serif); font-size:clamp(48px,7vw,80px); font-style:italic; font-weight:300; color:var(--accent); line-height:1; margin-bottom:12px; }
+    .finale-translation { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--grey3); margin-bottom:48px; }
+
+    /* COLOPHON */
+    .colophon { padding:60px; display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:48px; border-bottom:1px solid var(--grey1); }
+    .colophon-title { font-family:var(--sans); font-size:clamp(28px,4vw,48px); letter-spacing:-1px; line-height:.9; }
+    .colophon-title sup { font-family:var(--serif); font-style:italic; font-size:.4em; color:var(--accent); vertical-align:super; }
+    .colophon-section-title { font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--grey1); }
+    .colophon-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .colophon-list li { font-size:12px; color:var(--grey3); line-height:1.5; padding-left:16px; position:relative; }
+    .colophon-list li::before { content:'—'; position:absolute; left:0; color:var(--grey2); }
+    .colophon-bottom { padding:20px 60px; display:flex; justify-content:space-between; align-items:center; background:var(--ink); }
+    .colophon-bottom-text { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:rgba(247,244,239,.35); }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+    .reveal.up { opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <span class="eyebrow">Vol. I &nbsp;·&nbsp; Spring 2026</span>
+      <span class="eyebrow">Primary Source Portfolio</span>
+    </div>
+    <h1 class="masthead-title">CORPUS<sup>†</sup></h1>
+    <div class="masthead-right">
+      <span class="eyebrow">Religion &amp; Hip Hop Fashion</span>
+      <span class="masthead-subtitle">On the commodification of the sacred</span>
+    </div>
+  </header>
+
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="ticker">
+      <span>My Adidas</span><span class="dot">✦</span><span>Run-D.M.C. 1986</span><span class="dot">✦</span><span>The Jesus Piece</span><span class="dot">✦</span><span>Notorious B.I.G. 1997</span><span class="dot">✦</span><span>Sunday Service Coachella</span><span class="dot">✦</span><span>Kanye West 2019</span><span class="dot">✦</span><span>Whole Lotta Red</span><span class="dot">✦</span><span>Playboi Carti 2020</span><span class="dot">✦</span><span>Istaghfar Allah</span><span class="dot">✦</span><span>French Montana 2026</span><span class="dot">✦</span><span>Chrome Hearts</span><span class="dot">✦</span><span>Sacred &amp; Secular</span><span class="dot">✦</span><span>My Adidas</span><span class="dot">✦</span><span>Run-D.M.C. 1986</span><span class="dot">✦</span><span>The Jesus Piece</span><span class="dot">✦</span><span>Notorious B.I.G. 1997</span><span class="dot">✦</span><span>Sunday Service Coachella</span><span class="dot">✦</span><span>Kanye West 2019</span><span class="dot">✦</span><span>Whole Lotta Red</span><span class="dot">✦</span><span>Playboi Carti 2020</span><span class="dot">✦</span><span>Istaghfar Allah</span><span class="dot">✦</span><span>French Montana 2026</span><span class="dot">✦</span><span>Chrome Hearts</span><span class="dot">✦</span><span>Sacred &amp; Secular</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- COVER -->
+  <section class="cover reveal">
+    <div class="cover-left">
+      <div class="cover-overline"><span class="eyebrow">Issue One &nbsp;·&nbsp; Five Sources</span></div>
+      <h2 class="cover-headline">When<br><em>the Cross</em><strong>Becomes</strong>the Brand</h2>
+      <p class="cover-intro">Four decades of hip hop fashion have transformed crosses, rosaries, and images of divine figures into <strong>luxury commodities</strong> — objects whose sacred meaning is simultaneously exploited and erased by market forces. This portfolio traces that transformation across five primary sources, asking who holds the authority to define the sacred, and what remains of religious meaning when it passes through the marketplace.</p>
+      <div class="cover-bottom">
+        <div class="cover-scroll-hint">Scroll to begin</div>
+        <span class="eyebrow">Religion &amp; History of Hip Hop</span>
+      </div>
+    </div>
+    <div class="cover-right">
+      <div class="cover-issue-number">I</div>
+      <div class="cover-right-glyph">†</div>
+      <div class="cover-right-content">
+        <div class="cover-pull-quote">"200k for the jeans but istaghfar Allah I can't wear them lol."</div>
+        <div class="cover-pull-cite">French Montana &nbsp;·&nbsp; Instagram, April 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENTS -->
+  <nav class="contents-bar">
+    <div class="contents-item"><span class="contents-num">01</span><span class="contents-name">"My Adidas"</span><span class="contents-tag">Song · 1986</span></div>
+    <div class="contents-item"><span class="contents-num">02</span><span class="contents-name">"Hypnotize"</span><span class="contents-tag">Song · 1997</span></div>
+    <div class="contents-item"><span class="contents-num">03</span><span class="contents-name">Sunday Service</span><span class="contents-tag">Performance · 2019</span></div>
+    <div class="contents-item"><span class="contents-num">04</span><span class="contents-name">Whole Lotta Red</span><span class="contents-tag">Album · 2020</span></div>
+    <div class="contents-item"><span class="contents-num">05</span><span class="contents-name">Instagram Story</span><span class="contents-tag">Social · 2026</span></div>
+  </nav>
+
+  <!-- SOURCE 01 -->
+  <div class="spread spread-featured reveal">
+    <div class="panel">
+      <div class="src-number">SOURCE 01 OF 05</div>
+      <span class="src-label">Song</span>
+      <h3 class="src-title">"My Adidas"</h3>
+      <div class="src-artist">Run-D.M.C. &nbsp;·&nbsp; Profile Records &nbsp;·&nbsp; 1986</div>
+      <p class="annotation"><strong>What it is.</strong> A rap track dedicated entirely to the group's Adidas Superstar sneakers, released before any formal endorsement deal existed — making the song's devotion entirely organic, born from the streets of New York rather than a corporate boardroom.<br><br><strong>Why it matters.</strong> "My Adidas" establishes the foundational logic of commodity-as-devotional-object in hip hop fashion. When Run-D.M.C. performed at Madison Square Garden and instructed 40,000 fans to raise their Adidas in the air, the concert became a congregation and the sneaker a sacred object. The same social mechanisms Miller identifies as the engines of religious meaning-making — repetition, communal performance, collective affirmation — were applied to a mass-produced consumer product. This stands as hip hop's first and most authentic brand partnership — the template upon which all subsequent relationships between hip hop and consumer goods, sacred or otherwise, would be built.</p>
+      <div class="src-year-bg">1986</div>
+    </div>
+    <div class="panel panel-ink pull-panel">
+      <div class="pq-rule"></div>
+      <p class="pq-text">"My Adidas walk through concert doors / And roam all over coliseum floors."</p>
+      <span class="pq-source">Run-D.M.C., 1986</span>
+      <p class="annotation" style="margin-top:40px;font-size:12px;">The sneaker personified as companion — elevated to cultural symbol through communal ritual before any brand deal was signed. The devotion came before the deal.</p>
+    </div>
+  </div>
+
+  <!-- SOURCE 02 -->
+  <div class="spread spread-reverse reveal">
+    <div class="panel panel-cream glyph-panel">
+      <div class="glyph-main">✝</div>
+      <span class="glyph-label">The Jesus Piece · 1997</span>
+    </div>
+    <div class="panel">
+      <div class="src-number">SOURCE 02 OF 05</div>
+      <span class="src-label">Song</span>
+      <h3 class="src-title">"Hypnotize" &amp;<br>The Jesus Piece</h3>
+      <div class="src-artist">The Notorious B.I.G. &nbsp;·&nbsp; Bad Boy Records &nbsp;·&nbsp; 1997</div>
+      <p class="annotation"><strong>What it is.</strong> A posthumously released single in which Biggie references his diamond-encrusted Jesus pendant — a face of Christ in precious metals, commissioned from jeweler Tito Caicedo — worn alongside Cuban link chains as a marker of wealth and status.<br><br><strong>Why it matters.</strong> The Jesus Piece marks the moment a traditionally sacred symbol enters hip hop fashion as a luxury status object. Biggie's lyric — <em>"Cubans with the Jesus piece, with my peeps (Thank you, Lord)"</em> — captures the dual register precisely: faith and fashion rendered inseparable by the rhyme scheme itself. As Beckford argues, what counts as religious is renegotiated through social processes — and in hip hop, those processes were increasingly commercial. The pendant was later adopted by Jay-Z, Travis Scott, and A$AP Rocky, many with no devotional relationship to Christianity, raising the portfolio's central question: does the wearer's intent determine the symbol's meaning, or does the symbol carry its sacred construction regardless?</p>
+    </div>
+  </div>
+
+  <!-- THESIS BAND -->
+  <div class="thesis-band reveal">
+    <div>
+      <div class="thesis-label">Theoretical Frame</div>
+      <div class="thesis-word">SACRED<br>AS<br>CONSTRUCT</div>
+    </div>
+    <p class="thesis-body">Scholar Monica R. Miller, drawing on McCutcheon, argues that religion carries <strong>no inherent meaning outside of its social manufacturing</strong> — no sui generis essence that exists beyond cultural practice. Like race and gender, what we call sacred is real only insofar as dominant culture has agreed to treat it as such. Applied to hip hop fashion, this framework reveals commodification not as the destruction of religious meaning, but as a <strong>competing social process</strong> — one that re-manufactures sacred symbols within the logic of luxury, status, and brand identity.</p>
+  </div>
+
+  <!-- SOURCE 03 -->
+  <div class="feature-full reveal">
+    <div class="feature-col">
+      <div class="src-number">SOURCE 03 OF 05</div>
+      <span class="src-label">Performance &amp; Merch Drop</span>
+      <h3 class="src-title-sm">Sunday Service — Coachella, Easter Sunday</h3>
+      <div class="src-artist">Kanye West / Yeezy &nbsp;·&nbsp; April 21, 2019</div>
+      <p class="annotation"><strong>What it is.</strong> A gospel performance on a Coachella hillside on Easter Sunday, featuring a 100-person choir in custom Yeezy apparel — crewnecks reading "Holy Spirit," "Trust God" t-shirts, "Jesus Walks" socks, and choir ponchos — released as a limited merchandise drop alongside the performance.</p>
+    </div>
+    <div class="feature-col">
+      <p class="annotation" style="margin-top:0;padding-top:48px;border-top:1px solid var(--grey1);"><strong>Why it matters.</strong> Sunday Service represents the most deliberate blurring of personal faith and commercial spectacle in hip hop history. Kanye's deployment of religious imagery is grounded in a publicly documented Christian belief — making his commercialization distinct from artists who use sacred symbols purely aesthetically. McCutcheon's framework is visible in real time: religion being manufactured intentionally, its social construction on full display. Yet however genuine the faith behind it, the event simultaneously functioned as a brand activation and merchandise drop, raising the question of whether authenticity of belief can coexist with — or is ultimately consumed by — commercial intent.</p>
+    </div>
+    <div class="feature-col panel-ink" style="padding:48px 56px;">
+      <div class="pq-rule"></div>
+      <p class="pq-text" style="font-size:clamp(16px,2vw,22px);">Fans went further — founding "Yeezianity," an unofficial religion whose central tenet holds the artist as a divine model for human creative and moral behavior.</p>
+      <p class="annotation" style="margin-top:32px;font-size:11px;"><em>"He's a god. You're a god. Why Yeezus is the figure is because Kanye is the one who believes that the hardest."</em><br><br>— Yeezianity founder, via Vibe / Noisey, 2014</p>
+    </div>
+  </div>
+
+  <!-- SOURCE 04 -->
+  <div class="spread spread-2col reveal">
+    <div class="panel panel-ink">
+      <div class="src-number">SOURCE 04 OF 05</div>
+      <span class="src-label">Album &amp; Merch Rollout</span>
+      <h3 class="src-title">Whole<br>Lotta<br>Red</h3>
+      <div class="src-artist">Playboi Carti &nbsp;·&nbsp; Interscope &nbsp;·&nbsp; December 25, 2020</div>
+      <p class="annotation"><strong>What it is.</strong> Playboi Carti's second studio album, released on Christmas Day, accompanied by a merchandise drop featuring inverted cross motifs, gothic typography, and text including "Black Leather Devil" — framed by Carti's broader persona of satanic imagery, including an upside-down cross tattooed on his neck.<br><br><strong>Why it matters.</strong> Carti's is the most theoretically revealing source in this portfolio. The inversion of the cross only functions as provocation because the cross retains enough socially constructed sacred meaning to be worth inverting — his entire aesthetic depends on the resilience of the religious construction he appears to reject. Commodification does not destroy sacred meaning; it exploits it. The Christmas Day release amplifies the provocation: a satanic-coded album on the most significant date in the Christian calendar. Miller's framework confirms what Carti makes visceral — a symbol built across centuries of collective practice cannot be neutralized by any single artist's commercial agenda.</p>
+      <div class="src-year-bg">2020</div>
+    </div>
+    <div class="panel panel-accent-bg pull-panel">
+      <div class="pq-rule" style="background:rgba(247,244,239,.4);"></div>
+      <p class="pq-text" style="color:var(--paper);">"The upside-down cross only provokes because the cross still means something."</p>
+      <span class="pq-source" style="color:rgba(247,244,239,.5);">Thesis — Portfolio Essay</span>
+      <p class="annotation" style="margin-top:40px;font-size:12px;">Carti's anti-Christian aesthetic is as dependent on the sacred construction it opposes as Kanye's devotional branding is on the faith it expresses. Both confirm: <strong>the sacred and the commercial compete for the same symbols — and neither ever fully wins.</strong></p>
+      <div class="src-year-bg" style="-webkit-text-stroke:1px rgba(247,244,239,.15);">WLR</div>
+    </div>
+  </div>
+
+  <!-- SOURCE 05 -->
+  <div class="finale reveal">
+    <div class="finale-left">
+      <div>
+        <div class="src-number" style="color:var(--grey2);">SOURCE 05 OF 05</div>
+        <span class="src-label" style="color:var(--grey3);border-color:var(--grey2);">Social Media</span>
+        <div class="finale-arabic">Istaghfar Allah</div>
+        <div class="finale-translation">God, forgive me &nbsp;·&nbsp; French Montana, April 2026</div>
+      </div>
+      <div>
+        <h3 class="src-title">Instagram Story — Chrome Hearts Jeans</h3>
+        <div class="src-artist">French Montana &nbsp;·&nbsp; Instagram &nbsp;·&nbsp; April 2026</div>
+      </div>
+      <p class="annotation"><strong>What it is.</strong> A viral Instagram Story in which Muslim rapper French Montana posted a $200,000 pair of Chrome Hearts jeans — covered in gothic black and pink cross patches — with the caption: <em>"200k for the jeans but istaghfar Allah I can't wear them lol."</em></p>
+    </div>
+    <div class="finale-right">
+      <div class="pq-rule"></div>
+      <p class="pq-text" style="color:var(--paper);font-size:clamp(16px,2vw,24px);">Four decades of commercial machinery had so thoroughly absorbed the cross into the logic of luxury that its sacred construction became invisible — until, in a single moment of religious reckoning, it became the only thing that mattered.</p>
+      <p class="annotation" style="margin-top:32px;font-size:12px;"><strong>Why it matters.</strong> This source introduces a non-Christian perspective that no other source in this portfolio provides. French Montana did not choose the crosses on those jeans as an act of devotion or rebellion — he did not register them as religious symbols at all until after the purchase. It is the portfolio's thesis made tangible: the commodity is powerful enough to render sacred meaning invisible — until, as French Montana demonstrated, it isn't.</p>
+    </div>
+  </div>
+
+  <!-- COLOPHON -->
+  <div class="colophon">
+    <div class="colophon-title">COR<br>PUS<sup>†</sup></div>
+    <div>
+      <div class="colophon-section-title">Sources</div>
+      <ul class="colophon-list">
+        <li>"My Adidas" — Run-D.M.C. (1986)</li>
+        <li>"Hypnotize" — Notorious B.I.G. (1997)</li>
+        <li>Sunday Service — Kanye West (2019)</li>
+        <li>Whole Lotta Red — Playboi Carti (2020)</li>
+        <li>Instagram Story — French Montana (2026)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="colophon-section-title">Theoretical Framework</div>
+      <ul class="colophon-list">
+        <li>Miller — Social Construction of Religion</li>
+        <li>McCutcheon — Sui Generis Religion</li>
+        <li>Beckford — Social Processes of the Sacred</li>
+        <li>Smith — Religion as Scholarly Category</li>
+      </ul>
+    </div>
+    <div>
+      <div class="colophon-section-title">Course</div>
+      <ul class="colophon-list">
+        <li>Religion &amp; the History of Hip Hop</li>
+        <li>Individual Portfolio — Spring 2026</li>
+        <li>Commodification of Religious Imagery in Hip Hop Fashion</li>
+      </ul>
+    </div>
+  </div>
+  <div class="colophon-bottom">
+    <span class="colophon-bottom-text">CORPUS† &nbsp;·&nbsp; Vol. I &nbsp;·&nbsp; Spring 2026</span>
+    <span class="colophon-bottom-text">On the commodification of the sacred in hip hop fashion</span>
+  </div>
+
+  <script src="magazine.js"></script>
+</body>
+</html>
