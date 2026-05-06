@@ -30,7 +30,7 @@
       font-family: var(--body);
       font-weight: 300;
       overflow-x: hidden;
-      cursor: none;
+      cursor: default;
     }
 
     #cur { position:fixed; width:8px; height:8px; background:var(--ink); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s; mix-blend-mode:multiply; }
@@ -234,9 +234,6 @@
   </style>
 </head>
 <body>
-
-  <div id="cur"></div>
-  <div id="cur-ring"></div>
 
   <header class="masthead">
     <div class="masthead-left">
