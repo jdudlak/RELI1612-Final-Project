@@ -17,7 +17,7 @@ document.addEventListener('mousemove', e => {
   requestAnimationFrame(ringLoop);
 })();
 
-document.querySelectorAll('a, button, .contents-item, .panel, .cover-right').forEach(el => {
+document.querySelectorAll('a, button, .contents-item, .panel, .cover-right, .nav-tab').forEach(el => {
   el.addEventListener('mouseenter', () => {
     cur.style.width  = '16px';
     cur.style.height = '16px';
@@ -31,6 +31,46 @@ document.querySelectorAll('a, button, .contents-item, .panel, .cover-right').for
     curRing.style.height = '32px';
   });
 });
+
+// ── NAVBAR ACTIVE TAB ──────────────────────────────────────
+const tabs = document.querySelectorAll('.nav-tab');
+
+// Smooth scroll on tab click
+tabs.forEach(tab => {
+  tab.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(tab.getAttribute('href'));
+    if (target) {
+      const navH = document.getElementById('main-nav').offsetHeight;
+      const y = target.getBoundingClientRect().top + window.scrollY - navH - 16;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+// Update active tab on scroll based on section visibility
+const sections = [
+  { id: 'section-commercialization', tab: 'commercialization' },
+  { id: 'section-ritual',            tab: 'ritual' },
+  { id: 'section-authority',         tab: 'authority' },
+];
+
+const navH = document.getElementById('main-nav').offsetHeight;
+
+window.addEventListener('scroll', () => {
+  let current = 'commercialization';
+  sections.forEach(s => {
+    const el = document.getElementById(s.id);
+    if (el && el.getBoundingClientRect().top <= navH + 80) {
+      current = s.tab;
+    }
+  });
+  tabs.forEach(t => {
+    t.classList.toggle('active', t.dataset.section === current);
+  });
+}, { passive: true });
 
 // ── SCROLL REVEAL ──────────────────────────────────────────
 const obs = new IntersectionObserver(entries => {

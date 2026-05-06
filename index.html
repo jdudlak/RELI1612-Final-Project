@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CORPUS — A Portfolio on Sacred Imagery in Hip Hop Fashion</title>
+  <title>SACRED THREADS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Archivo+Black&family=Archivo:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
@@ -47,10 +47,68 @@
     /* MASTHEAD */
     .masthead { display:grid; grid-template-columns:1fr auto 1fr; align-items:end; padding:48px 60px 24px; border-bottom:1px solid var(--ink); }
     .masthead-left { display:flex; flex-direction:column; gap:6px; }
-    .masthead-title { font-family:var(--sans); font-size:clamp(64px,10vw,128px); letter-spacing:-3px; line-height:.9; color:var(--ink); text-align:center; }
+    .masthead-title { font-family:var(--sans); font-size:clamp(64px,10vw,80px); letter-spacing:-3px; line-height:.9; color:var(--ink); text-align:center; }
     .masthead-title sup { font-family:var(--serif); font-size:28px; font-style:italic; font-weight:300; vertical-align:super; letter-spacing:0; color:var(--accent); }
     .masthead-right { text-align:right; display:flex; flex-direction:column; gap:6px; align-items:flex-end; }
     .masthead-subtitle { font-family:var(--serif); font-style:italic; font-size:13px; color:var(--grey3); font-weight:300; }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: var(--paper);
+      border-bottom: 1px solid var(--ink);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .nav-tab {
+      padding: 18px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border-right: 1px solid var(--grey1);
+      cursor: none;
+      transition: background .25s;
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+    }
+    .nav-tab:last-child { border-right: none; }
+    .nav-tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--accent);
+      transition: width .35s cubic-bezier(.16,1,.3,1);
+    }
+    .nav-tab:hover { background: var(--cream); }
+    .nav-tab:hover::after,
+    .nav-tab.active::after { width: 100%; }
+    .nav-tab.active { background: var(--cream); }
+    .nav-tab-lens {
+      font-family: var(--sans);
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: var(--ink);
+      transition: color .2s;
+    }
+    .nav-tab:hover .nav-tab-lens { color: var(--accent); }
+    .nav-tab.active .nav-tab-lens { color: var(--accent); }
+    .nav-tab-name {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 12px;
+      color: var(--grey3);
+      font-weight: 300;
+    }
+    .nav-tab-count {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--grey2);
+    }
 
     /* TICKER */
     .ticker-wrap { background:var(--ink); overflow:hidden; white-space:nowrap; padding:10px 0; }
@@ -185,12 +243,27 @@
       <span class="eyebrow">Vol. I &nbsp;·&nbsp; Spring 2026</span>
       <span class="eyebrow">Primary Source Portfolio</span>
     </div>
-    <h1 class="masthead-title">CORPUS<sup>†</sup></h1>
+    <h1 class="masthead-title">SACRED THREADS<sup>†</sup></h1>
     <div class="masthead-right">
       <span class="eyebrow">Religion &amp; Hip Hop Fashion</span>
-      <span class="masthead-subtitle">On the commodification of the sacred</span>
     </div>
   </header>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="main-nav">
+    <a class="nav-tab active" href="#section-commercialization" data-section="commercialization">
+      <span class="nav-tab-lens">Commercialization</span>
+      <span class="nav-tab-name">Julia</span>
+    </a>
+    <a class="nav-tab" href="#section-ritual" data-section="ritual">
+      <span class="nav-tab-lens">Ritual</span>
+      <span class="nav-tab-name">Krishma</span>
+    </a>
+    <a class="nav-tab" href="#section-authority" data-section="authority">
+      <span class="nav-tab-lens">Authority</span>
+      <span class="nav-tab-name">Trisha</span>
+    </a>
+  </nav>
 
   <div class="ticker-wrap">
     <div class="ticker-track" id="ticker">
@@ -199,7 +272,7 @@
   </div>
 
   <!-- COVER -->
-  <section class="cover reveal">
+  <section class="cover reveal" id="section-commercialization">
     <div class="cover-left">
       <div class="cover-overline"><span class="eyebrow">Issue One &nbsp;·&nbsp; Five Sources</span></div>
       <h2 class="cover-headline">When<br><em>the Cross</em><strong>Becomes</strong>the Brand</h2>
@@ -331,6 +404,8 @@
   </div>
 
   <!-- COLOPHON -->
+  <div id="section-ritual" style="scroll-margin-top:57px;"></div>
+  <div id="section-authority" style="scroll-margin-top:57px;"></div>
   <div class="colophon">
     <div class="colophon-title">COR<br>PUS<sup>†</sup></div>
     <div>
