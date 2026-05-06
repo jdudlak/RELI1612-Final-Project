@@ -1,83 +1,86 @@
-// ── NAVBAR ACTIVE TAB ──────────────────────────────────────
-const tabs = document.querySelectorAll('.nav-tab');
+// ── CUSTOM CURSOR ──────────────────────────────────────────
+const cur     = document.getElementById('cur');
+const curRing = document.getElementById('cur-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
 
-// Smooth scroll on tab click
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx + 'px';
+  cur.style.top  = my + 'px';
+});
+
+(function loop() {
+  rx += (mx - rx) * 0.1;
+  ry += (my - ry) * 0.1;
+  curRing.style.left = rx + 'px';
+  curRing.style.top  = ry + 'px';
+  requestAnimationFrame(loop);
+})();
+
+// Grow cursor on interactive elements
+document.querySelectorAll('a, .nav-tab, .src-row, .contents-item').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cur.style.width = '14px'; cur.style.height = '14px';
+    curRing.style.width = '44px'; curRing.style.height = '44px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cur.style.width = '8px'; cur.style.height = '8px';
+    curRing.style.width = '32px'; curRing.style.height = '32px';
+  });
+});
+
+// ── NAVBAR — ACTIVE TAB ─────────────────────────────────────
+const tabs     = document.querySelectorAll('.nav-tab');
+const nav      = document.getElementById('main-nav');
+const sections = ['sec-ritual', 'sec-authority', 'sec-commercialization'];
+
+// Click → smooth scroll + set active
 tabs.forEach(tab => {
   tab.addEventListener('click', e => {
     e.preventDefault();
     const target = document.querySelector(tab.getAttribute('href'));
-    if (target) {
-      const navH = document.getElementById('main-nav').offsetHeight;
-      const y = target.getBoundingClientRect().top + window.scrollY - navH - 16;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
+    if (!target) return;
+    const offset = nav.offsetHeight + 1;
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
     tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
   });
 });
 
-// Update active tab on scroll based on section visibility
-const sections = [
-  { id: 'section-commercialization', tab: 'commercialization' },
-  { id: 'section-ritual',            tab: 'ritual' },
-  { id: 'section-authority',         tab: 'authority' },
-];
-
-const navH = document.getElementById('main-nav').offsetHeight;
-
+// Scroll → update active tab
 window.addEventListener('scroll', () => {
-  let current = 'commercialization';
-  sections.forEach(s => {
-    const el = document.getElementById(s.id);
-    if (el && el.getBoundingClientRect().top <= navH + 80) {
-      current = s.tab;
-    }
+  const offset = nav.offsetHeight + 60;
+  let active = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= offset) active = id;
   });
-  tabs.forEach(t => {
-    t.classList.toggle('active', t.dataset.section === current);
-  });
+  const map = { 'sec-ritual':'ritual', 'sec-authority':'authority', 'sec-commercialization':'commercialization' };
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.section === map[active]));
 }, { passive: true });
 
 // ── SCROLL REVEAL ──────────────────────────────────────────
-const obs = new IntersectionObserver(entries => {
+const revealObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('up');
-      obs.unobserve(e.target);
-    }
+    if (e.isIntersecting) { e.target.classList.add('up'); revealObs.unobserve(e.target); }
   });
-}, { threshold: 0.06, rootMargin: '0px 0px -32px 0px' });
+}, { threshold: 0.05, rootMargin: '0px 0px -24px 0px' });
 
 document.querySelectorAll('.reveal').forEach((el, i) => {
-  el.style.transitionDelay = `${(i % 4) * 0.08}s`;
-  obs.observe(el);
+  el.style.transitionDelay = `${(i % 3) * 0.1}s`;
+  revealObs.observe(el);
 });
 
-// ── MASTHEAD SCROLL ─────────────────────────────────────────
-const masthead = document.querySelector('.masthead');
+// ── COVER PARALLAX ─────────────────────────────────────────
 window.addEventListener('scroll', () => {
-  masthead.style.borderBottomColor = window.scrollY > 80 ? '#ddd8d0' : 'var(--ink)';
+  document.querySelectorAll('.sec-cover-glyph').forEach(g => {
+    const rect = g.closest('.sec-cover').getBoundingClientRect();
+    g.style.transform = `translateY(${-rect.top * 0.12}px)`;
+  });
 }, { passive: true });
 
-// ── COVER CROSS PARALLAX ────────────────────────────────────
-const coverGlyph = document.querySelector('.cover-right-glyph');
-if (coverGlyph) {
-  window.addEventListener('scroll', () => {
-    coverGlyph.style.transform = `translateY(${window.scrollY * 0.2}px)`;
-  }, { passive: true });
-}
-
-// ── PANEL SUBTLE TILT ───────────────────────────────────────
-document.querySelectorAll('.panel').forEach(panel => {
-  panel.addEventListener('mousemove', e => {
-    const r = panel.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width  - 0.5) * 2;
-    const y = ((e.clientY - r.top)  / r.height - 0.5) * 2;
-    panel.style.transform = `perspective(1200px) rotateX(${-y * 1.5}deg) rotateY(${x * 1.5}deg)`;
-    panel.style.transition = 'transform 0.08s ease';
-  });
-  panel.addEventListener('mouseleave', () => {
-    panel.style.transform = 'perspective(1200px) rotateX(0) rotateY(0)';
-    panel.style.transition = 'transform 0.6s ease';
-  });
+// ── IMAGE HOVER SCALE (already CSS, JS adds class for fine control) ──
+document.querySelectorAll('.src-row').forEach(row => {
+  row.addEventListener('mouseenter', () => row.classList.add('hovered'));
+  row.addEventListener('mouseleave', () => row.classList.remove('hovered'));
 });
