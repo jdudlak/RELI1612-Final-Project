@@ -8,9 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Archivo+Black&family=Archivo:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
 
-    /* ─────────────────────────────────────────
-       RESET & TOKENS
-    ───────────────────────────────────────── */
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
 
@@ -39,12 +36,8 @@
 
     #cur, #cur-ring { display: none; }
 
-    /* grain */
     body::after { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:8888; opacity:.5; }
 
-    /* ─────────────────────────────────────────
-       MASTHEAD
-    ───────────────────────────────────────── */
     .masthead {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -66,9 +59,6 @@
     .masthead-right { text-align:right; display:flex; flex-direction:column; gap:5px; align-items:flex-end; }
     .masthead-right span { font-size:10px; letter-spacing:5px; text-transform:uppercase; color:var(--g3); font-family:var(--body); }
 
-    /* ─────────────────────────────────────────
-       NAVBAR
-    ───────────────────────────────────────── */
     .navbar {
       position: sticky;
       top: 0;
@@ -110,19 +100,12 @@
     .nav-name { font-family:var(--serif); font-style:italic; font-size:12px; color:var(--g3); font-weight:300; }
     .nav-count { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--g2); }
 
-    /* ─────────────────────────────────────────
-       TICKER
-    ───────────────────────────────────────── */
     .ticker { background:var(--ink); overflow:hidden; white-space:nowrap; padding:9px 0; }
     .ticker-inner { display:inline-block; animation:ticker-scroll 32s linear infinite; }
     .ticker-inner span { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--paper); margin:0 28px; font-family:var(--body); }
     .ticker-inner .sep { color:var(--accent); margin:0 4px; font-size:12px; vertical-align:middle; }
     @keyframes ticker-scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ─────────────────────────────────────────
-       SECTION COVER
-       One per contributor — replace placeholder content
-    ───────────────────────────────────────── */
     .sec-cover {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -153,7 +136,7 @@
       overflow: hidden;
       min-height: 400px;
     }
-    /* ↓ Image goes here — add src to data-img or use inline style */
+
     .sec-cover-img {
       position: absolute;
       inset: 0;
@@ -167,7 +150,7 @@
       font-family: var(--sans);
       font-size: clamp(120px,18vw,220px);
       color: transparent;
-      -webkit-text-stroke: 1px rgba(247,244,239,.07);
+      -webkit-text-stroke: 1px rgba(247,244,239,.5);
       user-select: none;
       position: absolute;
     }
@@ -196,13 +179,8 @@
       padding-left: 26px;
     }
 
-    /* ─────────────────────────────────────────
-       SOURCE CARDS
-       5 per section. Each card: image + annotation.
-    ───────────────────────────────────────── */
     .sources { border-bottom: 1px solid var(--ink); }
 
-    /* ── Card row — alternates layout each card ── */
     .src-row {
       display: grid;
       border-bottom: 1px solid var(--g1);
@@ -213,7 +191,6 @@
     .src-row.layout-img-right { grid-template-columns: 58fr 42fr; }
     .src-row.layout-img-top   { grid-template-columns: 1fr 1fr; }
 
-    /* Image half */
     .src-img {
       position: relative;
       overflow: hidden;
@@ -228,7 +205,7 @@
       transition: transform .6s cubic-bezier(.16,1,.3,1);
     }
     .src-row:hover .src-img img { transform: scale(1.03); }
-    /* Placeholder shown when no image is provided */
+
     .src-img-placeholder {
       position: absolute;
       inset: 0;
@@ -252,7 +229,6 @@
       color: var(--g2);
     }
 
-    /* Text half */
     .src-text {
       padding: 52px 56px;
       display: flex;
@@ -297,7 +273,6 @@
     }
     .src-annotation strong { color:var(--ink); font-weight:600; }
 
-    /* Dark variant for contrast */
     .src-text.dark {
       background: var(--ink);
       border-color: transparent;
@@ -309,7 +284,6 @@
     .src-text.dark .src-annotation { color:rgba(247,244,239,.65); }
     .src-text.dark .src-annotation strong { color:var(--paper); }
 
-    /* Accent variant */
     .src-text.accent {
       background: var(--accent);
       border-color: transparent;
@@ -321,10 +295,6 @@
     .src-text.accent .src-annotation { color:rgba(247,244,239,.85); }
     .src-text.accent .src-annotation strong { color:var(--paper); }
 
-    /* ─────────────────────────────────────────
-       SECTION DIVIDER
-       Visual break between contributor sections
-    ───────────────────────────────────────── */
     .sec-divider {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -347,9 +317,6 @@
     .sec-divider-cell.current .sec-divider-lens { color:var(--accent); }
     .sec-divider-cell.current .sec-divider-num { color:rgba(200,0,30,.3); }
 
-    /* ─────────────────────────────────────────
-       COLOPHON
-    ───────────────────────────────────────── */
     .colophon {
       padding: 64px 60px;
       display: grid;
@@ -367,9 +334,6 @@
     .colophon-foot { padding:18px 60px; display:flex; justify-content:space-between; background:var(--ink); }
     .colophon-foot span { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:rgba(247,244,239,.3); }
 
-    /* ─────────────────────────────────────────
-       SCROLL REVEAL
-    ───────────────────────────────────────── */
     .reveal { opacity:0; transform:translateY(20px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
     .reveal.up { opacity:1; transform:translateY(0); }
 
@@ -380,24 +344,19 @@
   <div id="cur"></div>
   <div id="cur-ring"></div>
 
-  <!-- ══════════════════════════════════════
-       MASTHEAD
-  ══════════════════════════════════════ -->
+  <!-- Masthead -->
   <header class="masthead">
     <div class="masthead-meta">
       <span>Vol. I &nbsp;·&nbsp; Spring 2026</span>
-      <span>RELI1612 Final Portfolio</span>
+      <span>RELI 1612 Final Portfolio</span>
     </div>
     <h1 class="masthead-title">SACRED THREADS</h1>
     <div class="masthead-right">
-      <span>Religion &amp; Hip Hop Fashion</span>
-      <span style="font-family:var(--serif); font-style:italic; font-size:13px; color:var(--g3); letter-spacing:0; text-transform:none;">On sacred imagery in hip hop</span>
+      <span>Religion &amp; <br> Hip Hop &amp; <br> Fashion</span>
     </div>
   </header>
 
-  <!-- ══════════════════════════════════════
-       NAVBAR
-  ══════════════════════════════════════ -->
+  <!-- Navbar -->
   <nav class="navbar" id="main-nav">
     <a class="nav-tab active" href="#sec-ritual" data-section="ritual">
       <div class="nav-left">
@@ -420,14 +379,12 @@
   </nav>
 
 
-  <!-- ══════════════════════════════════════
-       ① KRISHMA — RITUAL
-  ══════════════════════════════════════ -->
+  <!-- Krishma - Authority -->
   <section id="sec-ritual" style="scroll-margin-top:57px;">
 
     <div class="sec-cover reveal">
       <div class="sec-cover-left">
-        <div class="sec-eyebrow">Section One &nbsp;·&nbsp; Krishma</div>
+        <div class="sec-eyebrow">Section One &nbsp;·&nbsp;</div>
         <div>
           <div class="sec-lens-label">Ritual<span>How hip hop performance becomes ceremony</span></div>
           <p class="sec-byline">— Krishma Gewali</p>
@@ -442,7 +399,7 @@
     </div>
 
     <div class="sources">
-      <!-- SOURCE 1 -->
+      <!-- Source 1 -->
       <div class="src-row layout-img-left reveal">
         <div class="src-img">
           <img src="images/rituals-1.png" alt="Brand Nubian, One for All Album Cover">
@@ -452,16 +409,19 @@
           <h3 class="src-title"><i>One for All</i> Album Cover</h3>
           <div class="src-credit">Brand Nubian &nbsp;·&nbsp; 1990</div>
           <p class="src-annotation">
-            The members are seen wearing the "Universal Flag" of the Five-Percent Nation 
-            (an eight-pointed star with a seven, crescent, and star) on patches and medallions, 
-            often paired with kufis or crowns. This embodiment of the flag in not the most obvious 
-            ways shows that the clothing is not a trend, but a message beyond music they are trying to 
-            spread. While Brand Nubian is known for its music based on the 5 Percent Nation, the 
-            clothing in this album cover shows that the message they have goes beyond music.
+            The members are seen wearing the "Universal Flag" of the 
+            Five-Percent Nation (an eight-pointed star with a seven, 
+            crescent, and star) on patches and medallions, often paired 
+            with kufis or crowns. This embodiment of the flag, in not 
+            the most obvious ways, shows that the clothing is not a 
+            trend, but a message beyond music they are trying to spread. 
+            While Brand Nubian is known for its music based on the 5 
+            Percent Nation, the clothing in this album cover shows 
+            that the message they have goes beyond music.
           </p>
         </div>
       </div>
-      <!-- SOURCE 2 -->
+      <!-- Source 2 -->
       <div class="src-row layout-img-right reveal">
         <div class="src-text dark">
           <div class="src-meta"><span class="src-num">02 / 05</span><span class="src-type">Type</span></div>
@@ -480,7 +440,7 @@
           <img src="images/rituals-2.png" alt="Mask">
         </div>
       </div>
-      <!-- SOURCE 3 -->
+      <!-- Source 3 -->
       <div class="src-row layout-img-left reveal">
         <div class="src-img">
           <img src="images/rituals-3.png" alt="Newspaper">
@@ -493,16 +453,16 @@
           </div>
           <div class="src-credit">Watts Truce &nbsp;·&nbsp; 1992</div>
           <p class="src-annotation">
-            In the 1992 Watts Truce, rival gangs in Los Angeles, specifically the Bloods and the Crips, 
-            negotiated a peace treaty following years of systemic violence and just days before the 1992 
-            L.A. Uprising. During the truce, the act of tying a blue bandana and a red bandana together 
-            became a visual shorthand for the end of hostilities. By knotting the clothes together, the 
-            gangs were stripped of their role as markers of division. They became a single object 
-            representing a shared commitment, and transcends individual life. 
+            In the 1992 Watts Truce, rival gangs in Los Angeles, specifically the Bloods and the Crips, negotiated a peace treaty following 
+            years of systemic violence and just days before the 1992 L.A. Uprising. During the truce, the act of tying a blue bandana and a 
+            red bandana together became a visual shorthand for the end of hostilities. By knotting the clothes together, the gangs were 
+            stripped of their role as markers of division. In Watts Truce, a Truce Party is videographed with DJs advocating peace amidst 
+            music playing in the background, and the symbolism of members representing their colors together shows that fashion goes beyond 
+            the role of an aesthetic marker to transform tools of division into sacred symbols of community.
           </p>
         </div>  
       </div>
-      <!-- SOURCE 4 -->
+      <!-- Source 4 -->
       <div class="src-row layout-img-right reveal">
         <div class="src-text accent">
           <div class="src-meta"><span class="src-num">04 / 05</span><span class="src-type">Music Video</span></div>
@@ -525,7 +485,7 @@
           </iframe>
         </div>
       </div>
-      <!-- SOURCE 5 -->
+      <!-- Source 5 -->
       <div class="src-row layout-img-left reveal">
         <div class="src-img" style="padding:0; position:relative;">
           <iframe
@@ -552,7 +512,7 @@
   </section>
 
 
-  <!-- DIVIDER I → II -->
+  <!-- Divider -->
   <div class="sec-divider">
     <div class="sec-divider-cell current">
       <div class="sec-divider-num">I</div>
@@ -569,14 +529,12 @@
   </div>
 
 
-  <!-- ══════════════════════════════════════
-       ② TRISHA — AUTHORITY
-  ══════════════════════════════════════ -->
+  <!-- Trisha - Authority -->
   <section id="sec-authority" style="scroll-margin-top:57px;">
 
     <div class="sec-cover reveal">
       <div class="sec-cover-left">
-        <div class="sec-eyebrow">Section Two &nbsp;·&nbsp; Trisha</div>
+        <div class="sec-eyebrow">Section Two</div>
         <div>
           <div class="sec-lens-label">Authority<span>When sacred power is derived through dress</span></div>
           <p class="sec-byline">— Trisha Taparia</p>
@@ -591,7 +549,7 @@
     </div>
 
     <div class="sources">
-      <!-- SOURCE 1 -->
+      <!-- Source 1 -->
       <div class="src-row layout-img-left reveal">
         <div class="src-img" style="padding:0; position:relative;">
           <iframe
@@ -617,7 +575,7 @@
           </p>
         </div>
       </div>
-      <!-- SOURCE 2 -->
+      <!-- Source 2 -->
       <div class="src-row layout-img-right reveal">
         <div class="src-text dark">
           <div class="src-meta"><span class="src-num">02 / 05</span><span class="src-type">Album Cover + Song</span></div>
@@ -634,7 +592,7 @@
           <img src="images/authority-2.jpg" alt="Makaveli (Tupac Shakir), The Don Killuminati: The 7 Day Theory album cover">
         </div>
       </div>
-      <!-- SOURCE 3 -->
+      <!-- Source 3 -->
       <div class="src-row layout-img-left reveal">
         <div class="src-img">
           <img src="images/authority-3.jpg" alt="Jay Electronica's Performance at the 2014 Brooklyn Hip-Hop Festival">
@@ -655,7 +613,7 @@
           </p>
         </div>
       </div>
-      <!-- SOURCE 4 -->
+      <!-- Source 4 -->
       <div class="src-row layout-img-right reveal">
         <div class="src-text accent">
           <div class="src-meta"><span class="src-num">04 / 05</span><span class="src-type">Music Video</span></div>
@@ -679,7 +637,7 @@
           </iframe>
         </div>
       </div>
-      <!-- SOURCE 5 -->
+      <!-- Source 5 -->
       <div class="src-row layout-img-left reveal">
         <div class="src-img" style="padding:0; position:relative;">
           <iframe
@@ -706,7 +664,7 @@
   </section>
 
 
-  <!-- DIVIDER II → III -->
+  <!-- Divider -->
   <div class="sec-divider">
     <div class="sec-divider-cell">
       <div class="sec-divider-num">I</div>
@@ -723,14 +681,12 @@
   </div>
 
 
-  <!-- ══════════════════════════════════════
-       ③ JULIA — COMMERCIALIZATION
-  ══════════════════════════════════════ -->
+  <!-- Julia - Commercialization -->
   <section id="sec-commercialization" style="scroll-margin-top:57px;">
 
     <div class="sec-cover reveal">
       <div class="sec-cover-left">
-        <div class="sec-eyebrow">Section Three &nbsp;·&nbsp; Julia</div>
+        <div class="sec-eyebrow">Section Three</div>
         <div>
           <div class="sec-lens-label">Commercialization<span>When sacred symbols become selling points</span></div>
           <p class="sec-byline">— Julia Dudlak</p>
@@ -745,7 +701,7 @@
     </div>
 
     <div class="sources">
-      <!-- SOURCE 1 -->
+      <!-- Source 1 -->
       <div class="src-row layout-img-left reveal">
         <div class="src-img">
           <img src="images/commercialization-1.png" alt="Run-D.M.C, 'My Adidas'">
@@ -767,7 +723,7 @@
           </p>
         </div>
       </div>
-      <!-- SOURCE 2 -->
+      <!-- Source 2 -->
       <div class="src-row layout-img-right reveal">
         <div class="src-text dark">
           <div class="src-meta"><span class="src-num">02 / 05</span><span class="src-type">Song</span></div>
@@ -788,7 +744,7 @@
           <img src="images/commercialization-2.png" alt="The Notorious B.I.G., 'Hypnotize'">
         </div>
       </div>
-      <!-- SOURCE 3 -->
+      <!-- Source 3 -->
       <div class="src-row layout-img-left reveal">
         <div class="src-img">
           <img src="images/commercialization-3.png" alt="Kanye West Sunday Service Merch (2019)'">
@@ -807,7 +763,7 @@
           </p>
         </div>
       </div>
-      <!-- SOURCE 4 -->
+      <!-- Source 4 -->
       <div class="src-row layout-img-right reveal">
         <div class="src-text accent">
           <div class="src-meta"><span class="src-num">04 / 05</span><span class="src-type">Album / Merch Drop</span></div>
@@ -827,7 +783,7 @@
           <img src="images/commercialization-4.png" alt="Playboi Carti Whole Lotta Red Merch (2020)'">
         </div>
       </div>
-      <!-- SOURCE 5 -->
+      <!-- Source 5 -->
       <div class="src-row layout-img-left reveal">
         <div class="src-img">
           <img src="images/commercialization-5.png" alt="French Montana Instagram Story (2026)'">
